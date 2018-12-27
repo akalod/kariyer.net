@@ -25,13 +25,13 @@ class kariyerNet
         $nodes = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $className ')]");
 
         foreach ($nodes as $k) {
-            $path = $k->childNodes[1];
-            $link = 'https://www.kariyer.net/' . $path->getAttribute('href');
+            $path = $k->childNodes[1]->childNodes[1];
+            $link = 'https://www.kariyer.net' . $path->getAttribute('href');
             $job = $path->childNodes[1]->nodeValue;
             $company = $path->childNodes[3]->nodeValue;
             $city = $path->childNodes[5]->nodeValue;
-            $date = trim($path->childNodes[7]->childNodes[1]->nodeValue);
-            $logo = $path->childNodes[9]->childNodes[1]->getAttribute('src');
+            $date = trim($k->childNodes[1]->childNodes[6]->childNodes[1]->nodeValue);
+            $logo = $k->childNodes[1]->childNodes[3]->childNodes[0]->getAttribute('src');
 
             $this->jobs[] = Array(
                 'job' => $job,
